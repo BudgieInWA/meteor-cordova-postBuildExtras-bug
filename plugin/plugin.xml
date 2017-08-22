@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        id="breaking-plugin" version="1.0.0">
+        id="local-plugin" version="1.0.0">
 
     <engines>
         <engine name="cordova" version=">=3.0.0" />
     </engines>
 
-    <name>Breaking Plugin</name>
-
-    <platform name="android">
-        <framework src="build-extras.gradle" custom="true" type="gradleReference" />
-    </platform>
+    <name>Local Plugin</name>
 </plugin>

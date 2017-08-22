@@ -1,18 +1,25 @@
-# Using `ext.postBuildExtras` Breaks Cordova Build
+# Local plugins break subsequent builds in 1.5.2-beta.11 and 1.6-beta.23
 
-1. `meteor run android` inside `meteor/` and watch the andoid app crash.
-1. Delete the contents of `plugin/build-extras.gradle`: `echo > plugin/build-extras.gradle`.
-1. `meteor run android` inside `meteor/` again and watch the andoid app run.
+Inside the `meteor` directory:
 
-Note that resetting the contents of `plugin/build-extras.gradle` will not cause the crash to come
-back until you also delete `meteor/.meteor/local/cordova-build`, or at least the
-`cdvassets.manifest` file within it.
+1. `meteor run android`. The app will build and run.
+1. `meteor run android` again. The build will fail with:
+
+
+	```
+	=> Errors executing Cordova commands:         
+												  
+	   While removing plugins cordova-plugin-meteor-webapp,cordova-plugin-splashscreen,cordova-plugin-statusbar,cordova-plugin-whitelist,cordova-plugin-wkwebview-engine,local-plugin from Cordova project:
+	   Cordova error: Plugin "local-plugin" is not present in the project. See `cordova plugin list`.
+	   (If the error message contains suggestions for a fix, note that this may not apply to the Meteor integration. You can try running again with the --verbose option to help diagnose the issue.)
+	```
 
 ## Recreating This Repro
 
 This project was created with
 
 1. `meteor create meteor`
+1. `meteor update --release 1.5.2-beta.11` or `meteor update --release 1.6-beta.23`
 1. `meteor add-platform andriod`
 1. Create the files under `plugin/` as you see them.
-1. `meteor add cordova:breaking-plugin@file://../plugin`
+1. `meteor add cordova:local-plugin@file://../plugin`
